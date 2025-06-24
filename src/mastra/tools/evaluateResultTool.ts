@@ -1,10 +1,5 @@
 import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
-import { generateObject } from "ai";
-import { openai } from "@ai-sdk/openai";
-
-// Initialize model
-const mainModel = openai("gpt-4o");
 
 export const evaluateResultTool = createTool({
   id: "evaluate-result",
@@ -18,7 +13,7 @@ export const evaluateResultTool = createTool({
     }).describe("The search result to evaluate"),
     existingUrls: z.array(z.string()).describe("URLs that have already been processed").optional(),
   }),
-  execute: async ({ context }) => {
+  execute: async ({ context, mastra }) => {
     try {
       const { query, result, existingUrls = [] } = context;
       console.log("Evaluating result", { context });
@@ -31,23 +26,33 @@ export const evaluateResultTool = createTool({
         };
       }
 
-      const { object } = await generateObject({
-        model: mainModel,
-        prompt: `Evaluate whether this search result is relevant and will help answer the query: "${query}".
+      const evaluationAgent = mastra!.getAgent('evaluationAgent');
+
+      const response = await evaluationAgent.generate(
+        [
+          {
+            role: "user",
+            content: `Evaluate whether this search result is relevant and will help answer the query: "${query}".
 
         Search result:
         Title: ${result.title}
         URL: ${result.url}
         Content snippet: ${result.content.substring(0, 500)}...
 
-        Respond with "relevant" or "irrelevant" and provide a brief reason.`,
-        schema: z.object({
-          isRelevant: z.boolean(),
-          reason: z.string(),
-        }),
-      });
+        Respond with a JSON object containing:
+        - isRelevant: boolean indicating if the result is relevant
+        - reason: brief explanation of your decision`
+          }
+        ],
+        {
+          experimental_output: z.object({
+            isRelevant: z.boolean(),
+            reason: z.string(),
+          }),
+        }
+      );
 
-      return object;
+      return response.object;
     } catch (error) {
       console.error("Error evaluating result:", error);
       return {
