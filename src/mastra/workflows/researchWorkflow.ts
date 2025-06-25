@@ -102,7 +102,7 @@ const researchStep = createStep({
         researchData: result.object,
         summary,
       };
-    } catch (error) {
+    } catch (error: any) {
       console.log({ error });
       return {
         researchData: { error: error.message },

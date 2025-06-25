@@ -3,7 +3,7 @@ import { openai } from "@ai-sdk/openai";
 import { webSearchTool, evaluateResultTool, extractLearningsTool } from "../tools";
 
 // Initialize model
-const mainModel = openai("gpt-4o");
+const mainModel = openai("gpt-4.1");
 
 export const researchAgent = new Agent({
   name: "Research Agent",
