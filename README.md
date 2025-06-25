@@ -20,11 +20,6 @@ The research assistant is built on Mastra's vNext workflows architecture for bet
    - `reportAgent`: Transforms research findings into comprehensive markdown reports
    - Only generates reports after user approval of research quality
 
-4. **Interactive CLI Experience**:
-   - Simple command-line interface for user input and feedback
-   - Step-by-step guidance through the research process
-   - Research review and approval before report generation
-
 ## Key Benefits of Mastra vNext Implementation
 
 1. **True Human-in-the-Loop Research**: Users can guide the research process, approve findings, and iterate when needed
