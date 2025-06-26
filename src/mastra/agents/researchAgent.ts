@@ -1,12 +1,14 @@
-import { Agent } from "@mastra/core/agent";
-import { openai } from "@ai-sdk/openai";
-import { webSearchTool, evaluateResultTool, extractLearningsTool } from "../tools";
+import { openai } from '@ai-sdk/openai';
+import { Agent } from '@mastra/core/agent';
+import { evaluateResultTool } from '../tools/evaluateResultTool';
+import { extractLearningsTool } from '../tools/extractLearningsTool';
+import { webSearchTool } from '../tools/webSearchTool';
 
 // Initialize model
-const mainModel = openai("gpt-4.1");
+const mainModel = openai('gpt-4.1');
 
 export const researchAgent = new Agent({
-  name: "Research Agent",
+  name: 'Research Agent',
   instructions: `You are an expert research agent. Your goal is to research topics thoroughly by:
 
   1. Generating specific search queries related to the main topic

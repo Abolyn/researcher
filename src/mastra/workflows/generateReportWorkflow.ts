@@ -46,9 +46,9 @@ const processResearchResultStep = createStep({
   }
 });
 
-// Create the main workflow
-export const mainWorkflow = createWorkflow({
-  id: "main-workflow",
+// Create the report generation workflow that iteratively researches and generates reports
+export const generateReportWorkflow = createWorkflow({
+  id: "generate-report-workflow",
   steps: [researchWorkflow, processResearchResultStep],
   inputSchema: z.object({}),
   outputSchema: z.object({
@@ -58,9 +58,9 @@ export const mainWorkflow = createWorkflow({
 });
 
 // The workflow logic:
-// 1. Run researchWorkflow once
+// 1. Run researchWorkflow iteratively until approved
 // 2. Process results and generate report if approved
-mainWorkflow
+generateReportWorkflow
   .dowhile(researchWorkflow, async ({ inputData }) => {
     const isCompleted = inputData.approved;
     return isCompleted !== true;
