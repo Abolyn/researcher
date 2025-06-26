@@ -1,10 +1,10 @@
 # Deep Research Assistant with Mastra
 
-This project implements an advanced AI research assistant using Mastra's vNext workflows and agent capabilities. It creates an interactive, human-in-the-loop research system that allows users to explore topics, evaluate results, and generate comprehensive reports.
+This project implements an advanced AI deep research assistant using Mastra's workflows and agent capabilities. It creates an interactive, human-in-the-loop research system that allows users to explore topics, evaluate results, and generate comprehensive reports.
 
 ## Implementation Approach
 
-The research assistant is built on Mastra's vNext workflows architecture for better orchestration and human interaction:
+The research assistant is built on Mastra's workflows architecture for better orchestration and human interaction:
 
 1. **Workflow-Based Architecture**:
    - `mainWorkflow`: Coordinates the entire research process
