@@ -6,8 +6,8 @@ const anthropic = createAnthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// Initialize model
-const mainModel = anthropic('claude-3-5-sonnet-20241022');
+// Initialize model - Claude 4 Sonnet with thinking capabilities
+const mainModel = anthropic('claude-4-sonnet');
 
 export const learningExtractionAgent = new Agent({
   name: "Learning Extraction Agent",

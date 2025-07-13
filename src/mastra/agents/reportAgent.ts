@@ -6,8 +6,8 @@ const anthropic = createAnthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// Initialize model - using Claude 3.5 Sonnet
-const reportModel = anthropic("claude-3-5-sonnet-20241022");
+// Initialize model - using Claude 4 Sonnet with thinking
+const reportModel = anthropic("claude-4-sonnet");
 
 export const reportAgent = new Agent({
   name: "Report Agent",
