@@ -13,7 +13,7 @@ export const evaluateResultTool = createTool({
     }).describe("The search result to evaluate"),
     existingUrls: z.array(z.string()).describe("URLs that have already been processed").optional(),
   }),
-  execute: async ({ context, mastra }) => {
+  execute: async (context: any, { mastra }: any = {}) => {
     try {
       const { query, result, existingUrls = [] } = context;
       console.log("Evaluating result", { context });

@@ -1,11 +1,16 @@
-import { openai } from '@ai-sdk/openai';
+import { createAnthropic } from '@ai-sdk/anthropic';
 import { Agent } from '@mastra/core/agent';
 import { evaluateResultTool } from '../tools/evaluateResultTool';
 import { extractLearningsTool } from '../tools/extractLearningsTool';
 import { webSearchTool } from '../tools/webSearchTool';
 
+// Initialize Anthropic with API key from environment
+const anthropic = createAnthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
 // Initialize model
-const mainModel = openai('gpt-4.1');
+const mainModel = anthropic('claude-3-5-sonnet-20241022');
 
 export const researchAgent = new Agent({
   name: 'Research Agent',

@@ -1,8 +1,13 @@
 import { Agent } from "@mastra/core/agent";
-import { openai } from "@ai-sdk/openai";
+import { createAnthropic } from "@ai-sdk/anthropic";
 
-// Initialize model - using o3-mini as in the original implementation
-const reportModel = openai("gpt-4.1");
+// Initialize Anthropic with API key from environment
+const anthropic = createAnthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
+
+// Initialize model - using Claude 3.5 Sonnet
+const reportModel = anthropic("claude-3-5-sonnet-20241022");
 
 export const reportAgent = new Agent({
   name: "Report Agent",

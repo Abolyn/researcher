@@ -12,7 +12,7 @@ export const extractLearningsTool = createTool({
       content: z.string(),
     }).describe("The search result to process"),
   }),
-  execute: async ({ context, mastra }) => {
+  execute: async (context: any, { mastra }: any = {}) => {
     try {
       const { query, result } = context;
 

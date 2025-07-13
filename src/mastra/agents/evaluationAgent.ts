@@ -1,8 +1,13 @@
 import { Agent } from "@mastra/core/agent";
-import { openai } from "@ai-sdk/openai";
+import { createAnthropic } from "@ai-sdk/anthropic";
+
+// Initialize Anthropic with API key from environment
+const anthropic = createAnthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
+});
 
 // Initialize model
-const mainModel = openai('gpt-4.1');
+const mainModel = anthropic('claude-3-5-sonnet-20241022');
 
 export const evaluationAgent = new Agent({
   name: "Evaluation Agent",

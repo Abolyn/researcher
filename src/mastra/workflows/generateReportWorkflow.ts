@@ -1,6 +1,6 @@
 import { createStep, createWorkflow } from "@mastra/core/workflows";
 import { researchWorkflow } from "./researchWorkflow";
-import fs from 'fs';
+import { writeFileSync } from 'fs';
 import { z } from "zod";
 
 // Map research output to report input and handle conditional logic
@@ -14,7 +14,7 @@ const processResearchResultStep = createStep({
     reportPath: z.string().optional(),
     completed: z.boolean(),
   }),
-  execute: async ({ inputData, mastra }) => {
+  execute: async ({ inputData, mastra }: { inputData: any; mastra: any }) => {
     // First determine if research was approved/successful
     const approved = inputData.approved && !!inputData.researchData;
 
@@ -35,7 +35,7 @@ const processResearchResultStep = createStep({
       ]);
 
       const reportPath = "report.md";
-      fs.writeFileSync(reportPath, response.text);
+      writeFileSync(reportPath, response.text);
 
       console.log("Report generated successfully!");
       return { reportPath, completed: true };
@@ -61,7 +61,7 @@ export const generateReportWorkflow = createWorkflow({
 // 1. Run researchWorkflow iteratively until approved
 // 2. Process results and generate report if approved
 generateReportWorkflow
-  .dowhile(researchWorkflow, async ({ inputData }) => {
+  .dowhile(researchWorkflow, async ({ inputData }: { inputData: any }) => {
     const isCompleted = inputData.approved;
     return isCompleted !== true;
   })

@@ -9,7 +9,7 @@ import { generateReportWorkflow } from './workflows/generateReportWorkflow';
 
 export const mastra = new Mastra({
   storage: new LibSQLStore({
-    url: 'file:../mastra.db',
+    url: process.env.DATABASE_URL || 'file:./mastra.db',
   }),
   agents: { researchAgent, reportAgent, evaluationAgent, learningExtractionAgent },
   workflows: { generateReportWorkflow, researchWorkflow },
